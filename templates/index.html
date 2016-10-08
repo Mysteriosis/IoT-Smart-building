@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>{{ title }}</title>
+		<style>
+			h1{
+				text-align: center;
+			}
+			
+			table{
+				margin-left: 3em;
+				margin-bottom: 3em; 
+				border-collapse:collapse; 
+				border: 1px solid black;
+			}
+			
+			table tr:first-child{
+				background-color: yellow; 
+				color: black; 
+				font-size: x-large;
+				text-align: left;
+			}
+			
+			table tr:first-child th:first-child{
+				width: 1000px;
+			}
+
+			
+			table tr:first-child th:first-child{
+				color: black;
+				width: 400px;
+				text-align: center;
+			}
+
+			table tr:nth-child(n+2) td:first-child{
+				color: green;
+				font-size: large;
+				text-align: center;
+				
+			}
+
+			table tr:nth-child(n) td:nth-child(2){
+
+				width: 1000px;
+
+			}
+
+
+			table tr:first-child th:nth-child(3){
+				width: 3000px;
+			}
+			
+			table tr{
+				border: 1px solid black;
+			}
+			
+			span{
+				font-family:'Courier New';
+				font-size:13
+			}
+		</style>
+	</head>
+
+
+
+	<body>
+		<h1>API Documentation</h1>
+		<p>Due to the Z-Wave specific protocol, this API Rest uses GET & POST methods for every endpoints (network, sensors, switches).</p>
+
+
+
+
+		
+		<h2>Network Endpoints</h2>
+		<table>
+			<tr>
+				<th>Method</th>
+				<th>Routes</th>
+				<th>Description</th>
+			</tr>
+
+			<tr>
+				<td>GET</td>
+				<td><b><a href="/network/info">/network/info</a></b></td>
+				<td>Gets information about the Z-Wave network in a JSON format</td>
+			</tr>
+			<tr>
+				<td style="color: red;">POST</td>
+				<td><b>/network/set_nodes_basic_configuration</b><br/>
+				<td>Configure all nodes of the network with a predefined configuration. This methods configures only Group 1. All measurements (temperature, luminosity, motion and humidity) must be retrieved from the sensors after a given period of time (Group_Interval Number).</td>
+			</tr>
+			<tr>
+				<td>GET</td>
+				<td><b><a href="/network/get_nodes_configuration">/network/get_nodes_configuration</a></b><br/>
+				<td>Gets the list of nodes and their configuration parameters in a JSON format</td>
+			</tr>
+			<tr>
+				<td>GET</td>
+				<td><b>/network/start</b><br/>
+				<td>Start the Z-Wave Network</td>
+			</tr>
+			<tr>
+				<td>GET</td>
+				<td><b>/network/stop</b><br/>
+				<td>Stop the Z-Wave Network</td>
+			</tr>
+			<tr>
+				<td>GET</td>
+				<td><b>/network/reset</b><br/>
+				<td>Reset the Z-Wave Network</td>
+			</tr>
+		</table>
+        
+
+
+
+		<h2>Nodes Endpoints (All nodes)</h2>
+		<table>
+			<tr>
+				<th>Method</th>
+				<th>Routes</th>
+				<th>Description</th>
+			</tr>
+			<tr>
+				<td>GET</td>
+				<td><b><a href="/nodes/get_nodes_list">/nodes/get_nodes_list</a></b></td>
+				<td>List all nodes in the network</td>
+			</tr>
+			<tr> 
+				<td style="color: maroon;">PUT</td> 
+				<td><b>/nodes/add_node</b></td>
+				<td>Adds Node to the network by getting the controller into inclusion mode for 20 seconds. The node can not be a controller.</td>
+			</tr>
+			<tr>  
+				<td style="color: maroon;">PUT</td>
+				<td><b>/nodes/remove_node</b></td>
+				<td>Removes Node from the network by getting the controller into exclusion mode for 20 seconds</td>
+			</tr>
+                        <tr>
+				<td style="color: red;">POST</td>
+                                <td><b>/nodes/set_parameter</b></td>
+                                <td>Sets the value of a given parameter of a node</td>
+                        </tr>
+                        <tr>
+				<td>GET</td>
+                                <td><b>/nodes/{$node_id}/get_parameter/{$parameter_index}</b></td>
+                                <td>Gets the value of a given parameter for node $node_id</td>
+                        </tr>
+                        <tr>
+				<td>GET</td>
+                                <td><b>/nodes/{$node_id}/get_battery</b></td>
+                                <td>Return current level of battery for node $node_id</td>
+                        </tr>
+                        <tr>
+				<td>GET</td>
+                                <td><b>/nodes/{$node_id}/get_neighbours</b></td>
+                                <td>Return the list of neighbors for node $node_id</td>
+                        </tr>
+			<tr>
+				<td style="color: red;">POST</td>
+				<td><b>/nodes/set_name</b></td>
+				<td>Set a new name of the node</td>
+			</tr>
+			<tr>
+				<td style="color: red;">POST</td>
+				<td><b>/nodes/set_location</b></td>
+				<td>Set the new location of a node</td>
+			</tr>
+                        <tr>
+				<td>GET</td>
+                                <td><b>/nodes/{$node_id}/get_name</b></td>
+                                <td>Get the name of the node $node_id </td>
+                        </tr>
+                        <tr>
+				<td>GET</td>
+                                <td><b>/nodes/{$node_id}/get_location</b></td>
+                                <td>Get the location of the node $node_id </td>
+                        </tr>
+        </table>
+
+
+
+
+
+
+		<h2>Sensors Endpoints (Multisensors)</h2>
+		<table>
+			<tr>
+				<th>Method</th>
+				<th>Routes</th>
+				<th>Description</th>
+			</tr>
+			<tr>   
+				<td>GET</td>
+				<td><b><a href="/sensors/get_sensors_list">/sensors/get_sensors_list</a></b></td>
+				<td>Display the list of all sensors in the network</td>
+			</tr>
+			<tr>
+				<td>GET</td>
+				<td><b>/sensors/{$sensor_id}/get_all_measures</b></td>
+				<td>Return all measures (temp, hum, lum, motion ...) for sensor $sensor_id</td>
+			</tr>
+			<tr>
+				<td>GET</td>
+				<td><b>/sensors/{$sensor_id}/get_temperature</b></td>
+				<td>Return current temperature for sensor $sensor_id</td>
+			</tr>
+			<tr>	
+				<td>GET</td>
+				<td><b>/sensors/{$sensor_id}/get_humidity</b></td>
+				<td>Return current humidity for sensor $sensor_id</td>
+			</tr>
+			<tr>		
+				<td>GET</td>
+				<td><b>/sensors/{$sensor_id}/get_luminance</b></td>
+				<td>Return current luminance for sensor $sensor_id</td>
+			</tr>
+			<tr>	
+				<td>GET</td>
+				<td><b>/sensors/{$sensor_id}/get_motion</b></td>
+				<td>Return presence detection value for sensor $sensor_id</td>
+			</tr>
+
+        </table>
+
+
+
+
+
+		<h2>Actuators Endpoints </h2>
+		<table>
+			<tr>
+				<th>Method</th>
+				<th>Routes</th>
+				<th>Description</th>
+			</tr>
+			<tr>
+				<td>GET</td>
+				<td><b><a href="/dimmers/get_dimmers_list">/dimmers/get_dimmers_list</a></b></td>
+				<td>Lists all dimmer nodes in the network.</td>
+			</tr>
+			<tr>
+				<td>GET</td>
+				<td><b>/dimmers/{$dimmer_id}/get_level</a></b></td>
+				<td>Gets dimmer node's brightness level</td>
+			</tr>
+			<tr>
+				<td style="color: red;">POST</td>
+				<td><b>/dimmers/{$dimmer_id}/set_level</b></td>
+				<td>Sends command to dimmer node to set its brightness level</td>
+			</tr>
+
+        </table>		
+		
+
+		
+        <br/><br/>
+        JSON format :<br/>
+        <span>{<br/>
+        &nbsp;&nbsp;"controller": CONTROLLER_NAME,<br/>
+        &nbsp;&nbsp;"location": SENSOR_LOCATION, <br/>
+        &nbsp;&nbsp;"sensor": SENSOR_ID,<br/>
+        &nbsp;&nbsp;"type": SENSOR_TYPE, <br/>
+        &nbsp;&nbsp;"updateTime": TIMESTAMP,<br/> 
+        &nbsp;&nbsp;"value": SENSOR_VALUE<br/>
+        }<br/><br/></span>
+        
+        Fields description :<br/>
+        <span>
+        &nbsp;&nbsp;<b>controller</b> : String desribing the controller (Raspberry name)<br/>
+        &nbsp;&nbsp;<b>location</b> : Precise location of the sensor in his network<br/>
+        &nbsp;&nbsp;<b>sensor</b> : Value describing the sensor (integer value)<br/>
+        &nbsp;&nbsp;<b>type</b> : String describing the sensor, possible values : <i>"temperature", "humidity", "presence", "luminosity"</i><br/>
+        &nbsp;&nbsp;<b>updateTime</b> : Timestamp of last update <br/>
+        &nbsp;&nbsp;<b>value</b> : Value of the sensor, possible types : <i>float</i> for temperature(deg. celsius), humidity(%age) and luminosity(lux) ; <i>boolea$
+        </span>
+	</body>
+</html>
