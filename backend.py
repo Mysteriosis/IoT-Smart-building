@@ -201,8 +201,6 @@ class Backend():
 #########################################################################################################################
 
 
-
-
 #######################################################################################################################
 ############# NETWORK #################################################################################################
 #######################################################################################################################
@@ -314,13 +312,35 @@ class Backend():
 
         #### COMPLETE THIS METHOD ##############
 
-	 return "this method gets the value of a configuration parameter"
+	return "this method gets the value of a configuration parameter"
 
 
 
     def get_nodes_Configuration(self):
         configurations = {'Network Home ID': self.network.home_id}
-        print self.network.controller.to_dict()
+        for node in self.network.nodes.itervalues():
+            if isReady(node) and node.node_id != 1 :
+                key = "Node_" + str(node.node_id)
+                configurations[key] = {}
+                configurations[key]["Node ID"] = node.node_id
+                values = node.get_values("All", "All", "All", "All", "All")
+                for value in values.itervalues():
+                    if value.label == "Enable Motion Sensor":
+                        configurations[key]["Enable Motion Sensor"] = value.data
+                    if value.label == "Group 1 Interval":
+                        configurations[key]["Group 1 Interval"] = value.data
+                    if value.label == "Group 1 Reports":
+                        configurations[key]["Group 1 Reports"] = value.data
+                    if value.label == "Group 2 Interval":
+                        configurations[key]["Group 2 Interval"] = value.data
+                    if value.label == "Group 2 Reports":
+                        configurations[key]["Group 2 Reports"] = value.data
+                    if value.label == "Group 3 Interval":
+                        configurations[key]["Group 3 Interval"] = value.data
+                    if value.label == "Group 3 Reports":
+                        configurations[key]["Group 3 Reports"] = value.data
+                    if value.label == "Wake-up Interval":
+                        configurations[key]["Wake-up Interval"] = value.data
 
 	return jsonify(configurations)
 
@@ -433,9 +453,19 @@ class Backend_with_sensors(Backend):
 
     def set_basic_nodes_configuration(self, Grp_interval, Grp_reports, Wakeup_interval):
 
-        #### COMPLETE THIS METHOD ##############
+        for node in self.network.nodes.itervalues():
+            if isReady(node) :
+                #Only Group 1
+                node.set_config_param(111, Grp_interval)
+                #node.set_config_param(112, Grp_interval)
+                #node.set_config_param(113, Grp_interval)
+                node.set_config_param(101, Grp_reports)
+                #node.set_config_param(102, Grp_reports)
+                #node.set_config_param(103, Grp_reports)
 
-        return "this method configures the nodes whit a specific configuration"
+        self.network.set_poll_interval(Wakeup_interval)
+
+        return jsonify({'Group_Interval': Grp_interval, 'Group_Reports': Grp_reports, 'Wake-up_Interval': Wakeup_interval})
 
 
 

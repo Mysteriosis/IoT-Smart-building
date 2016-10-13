@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<Driver xmlns="http://code.google.com/p/open-zwave/" version="3" home_id="0xd203c188" node_id="1" api_capabilities="1" controller_capabilities="8" poll_interval="30000" poll_interval_between="false" />
+<Driver xmlns="http://code.google.com/p/open-zwave/" version="3" home_id="0xd203c188" node_id="1" api_capabilities="0" controller_capabilities="8" poll_interval="30000" poll_interval_between="false" />
