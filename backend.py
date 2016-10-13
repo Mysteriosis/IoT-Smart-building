@@ -50,8 +50,8 @@ class Backend():
 
 	###### options needed for python openzwave library like config files path, logging,
         device = configpi.interface
-        #options = ZWaveOption(device, config_path="/home/pi/IoTLab/python-openzwave/openzwave/config", user_path=".", cmd_line="")
-        options = ZWaveOption(device, config_path="/home/iosis/IoTLab/python-openzwave/openzwave/config", user_path=".", cmd_line="")
+        options = ZWaveOption(device, config_path="/home/pi/IoTLab/python-openzwave/openzwave/config", user_path=".", cmd_line="")
+        #options = ZWaveOption(device, config_path="/home/iosis/IoTLab/python-openzwave/openzwave/config", user_path=".", cmd_line="")
         options.set_log_file("OZW.log")
         options.set_append_log_file(False)
         options.set_console_output(False)
