@@ -10,6 +10,6 @@ Repository for IoT Lab 1
 ## Installation
 
 1. Copy / clone project on your PC / Raspberry (Linux OS)
-2. Check path the variable ```options``` in **backend.py**
+2. Check path in variable ```options``` in **backend.py**
 3. Launch with ```python flask-main.py``` command.  
 (Eventually check if sudo is needed)
