@@ -1,6 +1,6 @@
 # IoT-Smart-building
-Repository for IoT Lab 1  
-Back-end python used as gateway for z-wave network
+Back-end python used as gateway for z-wave network  
+(IoT Lab 1)
 
 ## Dependencies
 
